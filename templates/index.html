@@ -15,7 +15,7 @@
             <h2>{{ planet.name }}</h2>
             <p>Order from the Sun: {{ planet.orderFromSun }}</p>
             <button
-                onclick="viewFacts('{{ planet.name }}', '{{ planet.hasRings }}', ' {{ planet.mainAtmosphere | join(', ') }} ', '{{ planet.surfaceTemperatureC.mean }}')">View
+                onclick="viewFacts('{{ planet.name }}', '{{ planet.hasRings}}', ' {{ planet.mainAtmosphere | join(', ') }} ', '{{ planet.surfaceTemperatureC.mean }}')">View
                 Facts</button>
         </div>
         {% endfor %}
@@ -23,6 +23,7 @@
 
     <script>
         function viewFacts(planet, rings, atmosphere, averageTemp) {
+            console.log(rings)
             let atmosphereStr = "No atmosphere"
             if (atmosphere.trim() !== "") {
                 let atmosphereArray = atmosphere.split(',').map(element => element.trim())
@@ -30,9 +31,10 @@
                     atmosphereStr = atmosphereArray.join(', ')
                 }
             }
+            rings = rings === "True"
 
             alert(`
-                ${planet} is a planet with ${rings ? "rings" : "no rings"}! 
+                ${planet} is a planet with ${rings  ? "rings" : "no rings"}! 
                 ${atmosphereStr === "No atmosphere" ? 'It has no known elements in the Atmosphere' : `Its Atmosphere contains: ${atmosphereStr}`}
                 with an average temperature of: ${averageTemp} Celsius
             `);
