@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BulletIn</title>
+</head>
+
+<body>
+    <div>
+        <h1>Fun Planet Facts ~ ma4368@columbia.edu</h1>
+        {% for planet in planets %}
+        <div style="display: inline-block; margin: 20px;">
+            <h2>{{ planet.name }}</h2>
+            <p>Order from the Sun: {{ planet.orderFromSun }}</p>
+            <button
+                onclick="viewFacts('{{ planet.name }}', '{{ planet.hasRings }}', ' {{ planet.mainAtmosphere | join(', ') }} ', '{{ planet.surfaceTemperatureC.mean }}')">View
+                Facts</button>
+        </div>
+        {% endfor %}
+    </div>
+
+    <script>
+        function viewFacts(planet, rings, atmosphere, averageTemp) {
+            let atmosphereStr = "No atmosphere"
+            if (atmosphere.trim() !== "") {
+                let atmosphereArray = atmosphere.split(',').map(element => element.trim())
+                if (atmosphereArray.length > 0) {
+                    atmosphereStr = atmosphereArray.join(', ')
+                }
+            }
+
+            alert(`
+                ${planet} is a planet with ${rings ? "rings" : "no rings"}! 
+                ${atmosphereStr === "No atmosphere" ? 'It has no known elements in the Atmosphere' : `Its Atmosphere contains: ${atmosphereStr}`}
+                with an average temperature of: ${averageTemp} Celsius
+            `);
+        }
+    </script>
+
+</body>
+
+</html>
